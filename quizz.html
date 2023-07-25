@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz Game</title>
+</head>
+<body>
+    <h1 class="main-title">Quiz Game</h1>
+
+    <!-- Player name form -->
+    <div class="over-content">
+        <img src="quiz.jpg" alt="QuestionMark"  width="200px" height="200px">
+        <div class="main-content">
+            <p>Bitte geben sie ihr Name ein:</p>
+            <input type="text" id="playerName" />
+            <button id="buttoncolor" onclick="startQuiz()">Start Quiz</button>
+        </div> 
+        
+        <div id="quizSection" style="display: none;">
+            <h2>Fragen:</h2>
+            <p id="questionText"></p>
+            <button onclick="answerQuestion(true)">Ja</button>
+            <button onclick="answerQuestion(false)">Nein</button>
+        </div>
+    
+    
+    </div>
+
+    <!-- JavaScript code -->
+    <script>
+        let playerName;
+        let quizSection = document.getElementById('quizSection');
+        let questionText = document.getElementById('questionText');
+        let questions = [
+            ["Ist es gerade Sommer?", true],
+            ["Scheint die Sonne draußen?", false],
+            ["1+1=3, stimmt das?", false],
+            ["Österreich hat mehr als 10 Millionen Einwohner.", false],
+            ["Herr Mario ist ein Trainer im IT-Bereich.", true],
+            ["Sandrino kommt aus Rumänien.", true],
+            ["Wir befinden uns gerade im Kurs.", true]
+        ];
+        let currentQuestionIndex = 0;
+        let correctAnswersCount = 0;
+
+        function askQuestion() {
+            if (currentQuestionIndex >= questions.length) {
+                showResult();
+                return;
+            }
+
+            let question = questions[currentQuestionIndex][0];
+            questionText.textContent = question;
+            quizSection.style.display = 'block';
+        }
+
+        function answerQuestion(userAnswerBool) {
+            let correctAnswer = questions[currentQuestionIndex][1];
+            if (userAnswerBool === correctAnswer) {
+                alert('Correct!');
+                correctAnswersCount++;
+            } else {
+                alert(`Incorrect. Richtige Antwort: ${correctAnswer}`);
+            }
+
+            currentQuestionIndex++;
+            askQuestion();
+        }
+
+        function showResult() {
+            let resultMessage;
+            if (correctAnswersCount >= 5) {
+                resultMessage = `Gratuliere, ${playerName}, du hast die Prüfung bestanden. Du bist jetzt ein IT-Trainer!`;
+            } else {
+                resultMessage = `Leider musst du noch lernen, ${playerName}.`;
+            }
+            alert(resultMessage);
+        }
+
+        function startQuiz() {
+            document.getElementById("buttoncolor").style.backgroundColor= 'yellow'
+            playerName = document.getElementById('playerName').value;
+            if (!playerName) {
+                alert('Bitte geben Sie Ihren Spielernamen ein.');
+            } else {
+                alert(`Sie werden als ${playerName} eingeloggt.\nLog in erfolgreich.`);
+                askQuestion();
+            }
+        }
+        
+    </script>
+</body>
+<style>
+.main-title{
+    background-color: aquamarine;
+    height: 40px;  
+    margin: 0;   
+}
+
+body{
+    background-color: green;
+    text-align: center;
+    margin: 0;
+}
+
+.over-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height:calc(100vh - 40px);
+    margin: 0;
+    flex-direction: column
+
+}
+
+.main-content{
+    background-color: azure;
+    width: 50%;
+    height: 200px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.1s;
+}
+.main-content:hover {
+    background-color: orange
+}
+
+.main-content button{
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.main-content input{
+    width: 192px;
+    margin: 0 auto;
+}
+img{
+    margin-bottom: 40px;
+    animation: rotateImage 5s linear infinite;
+}
+@keyframes rotateImage {
+    from {
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    
+    }
+}
+</style>
+</html>
+
