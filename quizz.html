@@ -72,10 +72,10 @@
             
             let correctAnswer = questions[currentQuestionIndex][1];
             if (userAnswerBool === correctAnswer) {
-                alert('Correct!');
+                alert('Richtig!');
                 correctAnswersCount++;
             } else {
-                alert(`Incorrect. Richtige Antwort: ${correctAnswer}`);
+                alert(`Falsch. Richtige Antwort: ${correctAnswer ? "Ja" : "Nein"}`);
             }
 
             currentQuestionIndex++;
@@ -102,7 +102,7 @@
             document.getElementById("buttoncolor").style.backgroundColor= 'yellow'
             playerName = document.getElementById('playerName').value;
             if (!playerName) {
-                alert('Bitte geben Sie Ihren Spielernamen ein.');
+                alert('Bitte geben Sie ihr Name ein.');
             } else {
                 alert(`Sie werden als ${playerName} eingeloggt.\nLog in erfolgreich.`);
                 askQuestion();
@@ -135,7 +135,7 @@ body{
 }
 
 .main-content{
-    background-color: azure;
+    background-color: rgb(69, 211, 211);
     width: 50%;
     height: 200px;
     justify-content: center;
@@ -144,7 +144,7 @@ body{
     transition: background-color 0.1s;
 }
 .main-content:hover {
-    background-color: orange
+    background-color: rgb(253, 209, 127)
 }
 
 .main-content button{
@@ -171,4 +171,3 @@ img{
 }
 </style>
 </html>
-
