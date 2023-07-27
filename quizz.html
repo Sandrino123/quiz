@@ -18,8 +18,10 @@
         <div id="quizSection" style="display: none;">
             <h2>Fragen:</h2>
             <p id="questionText"></p>
-            <button onclick="answerQuestion(true)">Ja</button>
-            <button onclick="answerQuestion(false)">Nein</button>
+            <button id="Ja"onclick="answerQuestion(true)">Ja</button>
+            <button id="Nein" onclick="answerQuestion(false)">Nein</button>
+            <button id="9" onclick="answerQuestion(true)">9</button>
+            <button id="12" onclick="answerQuestion(false)">12</button>
         </div>
     
     
@@ -35,8 +37,8 @@
             ["Scheint die Sonne draußen?", false],
             ["1+1=3, stimmt das?", false],
             ["Österreich hat mehr als 10 Millionen Einwohner.", false],
-            ["Herr Mario ist ein Trainer im IT-Bereich.", true],
-            ["Sandrino kommt aus Rumänien.", true],
+            ["Österreich und Deutschland sind Nachbarländer.", true],
+            ["Wie viele Bundesländern hat Österreich?", true],
             ["Wir befinden uns gerade im Kurs.", true]
         ];
         let currentQuestionIndex = 0;
@@ -54,6 +56,20 @@
         }
 
         function answerQuestion(userAnswerBool) {
+            if(currentQuestionIndex == 4){
+                document.getElementById("9").style.display = "inline"
+                document.getElementById("12").style.display = "inline"
+                document.getElementById("Ja").style.display = "none"
+                document.getElementById("Nein").style.display = "none"
+
+            } else {
+                document.getElementById("9").style.display = "none"
+                document.getElementById("12").style.display = "none"
+                document.getElementById("Ja").style.display = "inline"
+                document.getElementById("Nein").style.display = "inline"
+                
+            }
+            
             let correctAnswer = questions[currentQuestionIndex][1];
             if (userAnswerBool === correctAnswer) {
                 alert('Correct!');
@@ -67,16 +83,22 @@
         }
 
         function showResult() {
+            let totalQuestions = questions.length;
+            console.log(questions);
+            let percentageCorrect = (correctAnswersCount / totalQuestions) * 100 
             let resultMessage;
-            if (correctAnswersCount >= 5) {
-                resultMessage = `Gratuliere, ${playerName}, du hast die Prüfung bestanden!`;
-            } else {
-                resultMessage = `Leider musst du noch lernen, ${playerName}.`;
+            if (percentageCorrect >= 50){
+                resultMessage = `Gratuliere, ${playerName}, sie haben Prüfung bestanden mit ${percentageCorrect.toFixed(2)}% .`;
+            } else{
+                resultMessage = `Sie müssen noch lernen, ${playerName}. Ihr score ist ${percentageCorrect.toFixed(2)}%.`;  
             }
+
             alert(resultMessage);
         }
 
         function startQuiz() {
+            document.getElementById("9").style.display = "none"
+            document.getElementById("12").style.display = "none"
             document.getElementById("buttoncolor").style.backgroundColor= 'yellow'
             playerName = document.getElementById('playerName').value;
             if (!playerName) {
