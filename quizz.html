@@ -6,9 +6,9 @@
 <body>
     <h1 class="main-title">Quiz Game</h1>
 
-    <!-- Player name form -->
     <div class="over-content">
-        <img src="quiz.jpg" alt="QuestionMark"  width="200px" height="200px">
+        <div id="resultDisplay" style="display: none;"></div>
+        <img src="quiz.jpg" alt="QuestionMark"  width="200px" height="200px" id="questionMarkImg">
         <div class="main-content">
             <p>Bitte geben sie ihr Name ein:</p>
             <input type="text" id="playerName" />
@@ -18,13 +18,11 @@
         <div id="quizSection" style="display: none;">
             <h2>Fragen:</h2>
             <p id="questionText"></p>
-            <button id="Ja"onclick="answerQuestion(true)">Ja</button>
+            <button id="Ja" onclick="answerQuestion(true)">Ja</button>
             <button id="Nein" onclick="answerQuestion(false)">Nein</button>
             <button id="9" onclick="answerQuestion(true)">9</button>
             <button id="12" onclick="answerQuestion(false)">12</button>
         </div>
-    
-    
     </div>
 
     <!-- JavaScript code -->
@@ -32,6 +30,7 @@
         let playerName;
         let quizSection = document.getElementById('quizSection');
         let questionText = document.getElementById('questionText');
+        let questionMarkImg = document.getElementById('questionMarkImg');
         let questions = [
             ["Ist es gerade Sommer?", true],
             ["Scheint die Sonne draußen?", false],
@@ -56,18 +55,16 @@
         }
 
         function answerQuestion(userAnswerBool) {
-            if(currentQuestionIndex == 4){
-                document.getElementById("9").style.display = "inline"
-                document.getElementById("12").style.display = "inline"
-                document.getElementById("Ja").style.display = "none"
-                document.getElementById("Nein").style.display = "none"
-
+            if (currentQuestionIndex == 4) {
+                document.getElementById("9").style.display = "inline";
+                document.getElementById("12").style.display = "inline";
+                document.getElementById("Ja").style.display = "none";
+                document.getElementById("Nein").style.display = "none";
             } else {
-                document.getElementById("9").style.display = "none"
-                document.getElementById("12").style.display = "none"
-                document.getElementById("Ja").style.display = "inline"
-                document.getElementById("Nein").style.display = "inline"
-                
+                document.getElementById("9").style.display = "none";
+                document.getElementById("12").style.display = "none";
+                document.getElementById("Ja").style.display = "inline";
+                document.getElementById("Nein").style.display = "inline";
             }
             
             let correctAnswer = questions[currentQuestionIndex][1];
@@ -84,90 +81,105 @@
 
         function showResult() {
             let totalQuestions = questions.length;
-            console.log(questions);
-            let percentageCorrect = (correctAnswersCount / totalQuestions) * 100 
+            let percentageCorrect = (correctAnswersCount / totalQuestions) * 100;
             let resultMessage;
-            if (percentageCorrect >= 50){
-                resultMessage = `Gratuliere, ${playerName}, sie haben Prüfung bestanden mit ${percentageCorrect.toFixed(2)}% .`;
-            } else{
-                resultMessage = `Sie müssen noch lernen, ${playerName}. Ihr score ist ${percentageCorrect.toFixed(2)}%.`;  
+            if (percentageCorrect >= 50) {
+                resultMessage = `Gratuliere, ${playerName}, sie haben die Prüfung mit ${percentageCorrect.toFixed(2)}% bestanden.`;
+            } else {
+                resultMessage = `Sie müssen noch lernen, ${playerName}. Ihr Score ist ${percentageCorrect.toFixed(2)}%.`;  
             }
-
-            alert(resultMessage);
+            document.getElementById("resultDisplay").textContent = resultMessage;
+            quizSection.style.display = 'none';
+            document.getElementById("resultDisplay").style.display = 'block';
+            questionMarkImg.style.display = 'none';
         }
 
         function startQuiz() {
-            document.getElementById("9").style.display = "none"
-            document.getElementById("12").style.display = "none"
-            document.getElementById("buttoncolor").style.backgroundColor= 'yellow'
+            document.getElementById("9").style.display = "none";
+            document.getElementById("12").style.display = "none";
+            document.getElementById("buttoncolor").style.backgroundColor= 'yellow';
             playerName = document.getElementById('playerName').value;
             if (!playerName) {
                 alert('Bitte geben Sie ihr Name ein.');
             } else {
                 alert(`Sie werden als ${playerName} eingeloggt.\nLog in erfolgreich.`);
                 askQuestion();
+                let mainContentBox = document.querySelector('.main-content');
+                mainContentBox.style.display = 'none';
+
+                quizSection.style.display = 'block';
             }
         }
-        
     </script>
 </body>
 <style>
-.main-title{
-    background-color: aquamarine;
-    height: 40px;  
-    margin: 0;   
-}
-
-body{
-    background-color: rgb(207, 150, 150);
-    text-align: center;
-    margin: 0;
-}
-
-.over-content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height:calc(100vh - 40px);
-    margin: 0;
-    flex-direction: column
-
-}
-
-.main-content{
-    background-color: rgb(69, 211, 211);
-    width: 50%;
-    height: 200px;
-    justify-content: center;
-    display: flex;
-    flex-direction: column;
-    transition: background-color 0.1s;
-}
-.main-content:hover {
-    background-color: rgb(253, 209, 127)
-}
-
-.main-content button{
-    width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-}
-.main-content input{
-    width: 192px;
-    margin: 0 auto;
-}
-img{
-    margin-bottom: 40px;
-    animation: rotateImage 5s linear infinite;
-}
-@keyframes rotateImage {
-    from {
-        transform: rotate(0deg);
+    .main-title {
+        background-color: aquamarine;
+        height: 40px;  
+        margin: 0;   
     }
-    to{
-        transform: rotate(360deg);
-    
+
+    body {
+        background-color: rgb(207, 150, 150);
+        text-align: center;
+        margin: 0;
     }
-}
+
+    .over-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: calc(100vh - 40px);
+        margin: 0;
+        flex-direction: column;
+    }
+
+    .main-content {
+        background-color: rgb(69, 211, 211);
+        width: 50%;
+        height: 200px;
+        justify-content: center;
+        display: flex;
+        flex-direction: column;
+        transition: background-color 0.1s;
+    }
+
+    .main-content:hover {
+        background-color: rgb(253, 209, 127)
+    }
+
+    .main-content button {
+        width: 200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .main-content input {
+        width: 192px;
+        margin: 0 auto;
+    }
+
+    img {
+        margin-bottom: 40px;
+        animation: rotateImage 5s linear infinite;
+    }
+
+    @keyframes rotateImage {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    #resultDisplay {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        margin-top: 20px;
+    }
 </style>
 </html>
