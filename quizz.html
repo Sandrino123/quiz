@@ -25,10 +25,8 @@
         </div>
     </div>
 
-    <!-- Add this button below the result display -->
     <button id="restartButton" onclick="restartQuiz()" style="display: none;">Restart Quiz</button>
 
-    <!-- JavaScript code -->
     <script>
         let playerName;
         let quizSection = document.getElementById('quizSection');
@@ -94,7 +92,7 @@
             document.getElementById("resultDisplay").textContent = resultMessage;
             quizSection.style.display = 'none';
             document.getElementById("resultDisplay").style.display = 'block';
-            document.getElementById("restartButton").style.display = 'block'; // Show the restart button
+            document.getElementById("restartButton").style.display = 'block';
         }
 
         function startQuiz() {
@@ -118,7 +116,7 @@
             currentQuestionIndex = 0;
             correctAnswersCount = 0;
             document.getElementById("resultDisplay").style.display = "none";
-            document.getElementById("questionMarkImg").style.display = "block"; // Show the image again
+            document.getElementById("questionMarkImg").style.display = "block";
             askQuestion();
         }
     </script>
