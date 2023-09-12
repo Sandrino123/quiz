@@ -10,7 +10,7 @@
         <div id="resultDisplay" style="display: none;"></div>
         <img src="quiz.jpg" alt="QuestionMark"  width="200px" height="200px" id="questionMarkImg">
         <div class="main-content">
-            <p>Bitte geben Sie Ihren Namen ein:</p>
+            <p>Bitte geben sie ihr Name ein:</p>
             <input type="text" id="playerName" />
             <button id="buttoncolor" onclick="startQuiz()">Start Quiz</button>
         </div> 
@@ -23,24 +23,28 @@
             <button id="9" onclick="answerQuestion(true)">9</button>
             <button id="12" onclick="answerQuestion(false)">12</button>
         </div>
+
+        <button id="restartButton" style="display: none;" onclick="restartQuiz()">Restart Quiz</button>
     </div>
 
-    <button id="restartButton" onclick="restartQuiz()" style="display: none;">Restart Quiz</button>
-
+    <!-- JavaScript code -->
     <script>
         let playerName;
         let quizSection = document.getElementById('quizSection');
         let questionText = document.getElementById('questionText');
         let questionMarkImg = document.getElementById('questionMarkImg');
+        let restartButton = document.getElementById('restartButton');
+
         let questions = [
             ["Ist es gerade Sommer?", true],
             ["Scheint die Sonne draußen?", false],
             ["1+1=3, stimmt das?", false],
             ["Österreich hat mehr als 10 Millionen Einwohner.", false],
             ["Österreich und Deutschland sind Nachbarländer.", true],
-            ["Wie viele Bundesländer hat Österreich?", true],
+            ["Wie viele Bundesländern hat Österreich?", true],
             ["Wir befinden uns gerade im Kurs.", true]
         ];
+
         let currentQuestionIndex = 0;
         let correctAnswersCount = 0;
 
@@ -92,7 +96,8 @@
             document.getElementById("resultDisplay").textContent = resultMessage;
             quizSection.style.display = 'none';
             document.getElementById("resultDisplay").style.display = 'block';
-            document.getElementById("restartButton").style.display = 'block';
+            questionMarkImg.style.display = 'none'; // Hide the image after the last question is answered
+            restartButton.style.display = 'block'; // Show the restart button
         }
 
         function startQuiz() {
@@ -101,7 +106,7 @@
             document.getElementById("buttoncolor").style.backgroundColor= 'yellow';
             playerName = document.getElementById('playerName').value;
             if (!playerName) {
-                alert('Bitte geben Sie Ihren Namen ein.');
+                alert('Bitte geben Sie ihr Name ein.');
             } else {
                 alert(`Sie werden als ${playerName} eingeloggt.\nLog in erfolgreich.`);
                 askQuestion();
@@ -115,9 +120,10 @@
         function restartQuiz() {
             currentQuestionIndex = 0;
             correctAnswersCount = 0;
-            document.getElementById("resultDisplay").style.display = "none";
-            document.getElementById("questionMarkImg").style.display = "block";
             askQuestion();
+            document.getElementById("resultDisplay").style.display = 'none';
+            questionMarkImg.style.display = 'block'; // Show the image again
+            restartButton.style.display = 'none'; // Hide the restart button
         }
     </script>
 </body>
@@ -188,6 +194,11 @@
         align-items: center;
         font-size: 24px;
         font-weight: bold;
+        margin-top: 20px;
+    }
+
+    #restartButton {
+        display: none;
         margin-top: 20px;
     }
 </style>
