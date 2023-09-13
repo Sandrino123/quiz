@@ -20,14 +20,15 @@
             <p id="questionText"></p>
             <button id="Ja" onclick="answerQuestion(true)">Ja</button>
             <button id="Nein" onclick="answerQuestion(false)">Nein</button>
-            <button id="9" onclick="answerQuestion(true)">9</button>
-            <button id="12" onclick="answerQuestion(false)">12</button>
+            <button id="25" onclick="answerQuestion(true)">25</button>
+            <button id="35" onclick="answerQuestion(false)">35</button>
+            <button id="Ready" style="display: none;" onclick="answerQuestion(true)">Ready for challange</button>
+            <button id="NotReady" style="display: none;" onclick="answerQuestion(false)">Not ready</button>
         </div>
 
         <button id="restartButton" style="display: none;" onclick="restartQuiz()">Restart Quiz</button>
     </div>
 
-    <!-- JavaScript code -->
     <script>
         let playerName;
         let quizSection = document.getElementById('quizSection');
@@ -36,13 +37,13 @@
         let restartButton = document.getElementById('restartButton');
 
         let questions = [
-            ["Ist es gerade Sommer?", true],
-            ["Scheint die Sonne draußen?", false],
-            ["1+1=3, stimmt das?", false],
-            ["Österreich hat mehr als 10 Millionen Einwohner.", false],
-            ["Österreich und Deutschland sind Nachbarländer.", true],
-            ["Wie viele Bundesländern hat Österreich?", true],
-            ["Wir befinden uns gerade im Kurs.", true]
+            ["Ist Coders.BAY ein Ausbildungsinstitut?", true],
+            ["Dauert die Ausbildung länger als 25 Wochen?", false],
+            ["Wird ein Zertifikat nach Abschluss der Ausbildung ausgestellt? ", true],
+            ["Wird die Ausbildung in Englisch unterrichtet?", false],
+            ["Möchtest du eine Ausbildung in der IT-Branche absolvieren?", true],
+            ["Wie viele Wochen dauert die Ausbildung?", true],
+            ["Sind sie bereit für die Ausbildung und die Herausforderungen was ihnen erwarten?", true]
         ];
 
         let currentQuestionIndex = 0;
@@ -60,29 +61,37 @@
         }
 
         function answerQuestion(userAnswerBool) {
-            if (currentQuestionIndex == 4) {
-                document.getElementById("9").style.display = "inline";
-                document.getElementById("12").style.display = "inline";
-                document.getElementById("Ja").style.display = "none";
-                document.getElementById("Nein").style.display = "none";
-            } else {
-                document.getElementById("9").style.display = "none";
-                document.getElementById("12").style.display = "none";
-                document.getElementById("Ja").style.display = "inline";
-                document.getElementById("Nein").style.display = "inline";
-            }
-            
-            let correctAnswer = questions[currentQuestionIndex][1];
-            if (userAnswerBool === correctAnswer) {
-                alert('Richtig!');
-                correctAnswersCount++;
-            } else {
-                alert(`Falsch. Richtige Antwort: ${correctAnswer ? "Ja" : "Nein"}`);
-            }
+    if (currentQuestionIndex === 4) {
+        document.getElementById("25").style.display = "inline";
+        document.getElementById("35").style.display = "inline";
+        document.getElementById("Ja").style.display = "none";
+        document.getElementById("Nein").style.display = "none";
+    } else if (currentQuestionIndex === 6) {
+        document.getElementById("Ready").style.display = "inline";
+        document.getElementById("NotReady").style.display = "inline";
+        document.getElementById("Ja").style.display = "none";
+        document.getElementById("Nein").style.display = "none";
+    } else {
+        document.getElementById("25").style.display = "none";
+        document.getElementById("35").style.display = "none";
+        document.getElementById("Ready").style.display = "none";
+        document.getElementById("NotReady").style.display = "none";
+        document.getElementById("Ja").style.display = "inline";
+        document.getElementById("Nein").style.display = "inline";
+    }
 
-            currentQuestionIndex++;
-            askQuestion();
-        }
+    let correctAnswer = questions[currentQuestionIndex][1];
+    if (userAnswerBool === correctAnswer) {
+        alert('Richtig!');
+        correctAnswersCount++;
+    } else {
+        alert(`Falsch. Richtige Antwort: ${correctAnswer ? "Ja" : "Nein"}`);
+    }
+
+    currentQuestionIndex++;
+    askQuestion();
+}
+        
 
         function showResult() {
             let totalQuestions = questions.length;
@@ -96,13 +105,13 @@
             document.getElementById("resultDisplay").textContent = resultMessage;
             quizSection.style.display = 'none';
             document.getElementById("resultDisplay").style.display = 'block';
-            questionMarkImg.style.display = 'none'; // Hide the image after the last question is answered
-            restartButton.style.display = 'block'; // Show the restart button
+            questionMarkImg.style.display = 'none';
+            restartButton.style.display = 'block';
         }
 
         function startQuiz() {
-            document.getElementById("9").style.display = "none";
-            document.getElementById("12").style.display = "none";
+            document.getElementById("25").style.display = "none";
+            document.getElementById("35").style.display = "none";
             document.getElementById("buttoncolor").style.backgroundColor= 'yellow';
             playerName = document.getElementById('playerName').value;
             if (!playerName) {
@@ -122,8 +131,8 @@
             correctAnswersCount = 0;
             askQuestion();
             document.getElementById("resultDisplay").style.display = 'none';
-            questionMarkImg.style.display = 'block'; // Show the image again
-            restartButton.style.display = 'none'; // Hide the restart button
+            questionMarkImg.style.display = 'block';
+            restartButton.style.display = 'none';
         }
     </script>
 </body>
